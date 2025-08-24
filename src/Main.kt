@@ -26,7 +26,7 @@ inline fun inlined(block: () -> Unit) {
 inline fun foo(f: () -> Unit) {
     someFunInsideInlinedFun {
         //error: Cannot inline 'f: () -> Unit' here: it might contain non-local returns.
-        // Add 'crossinline' modifier to parameter declaration 'f: ()'
+        // Should add 'crossinline' modifier to parameter declaration 'f: ()'
         f()
     }
 }
