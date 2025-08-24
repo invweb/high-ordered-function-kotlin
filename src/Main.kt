@@ -13,12 +13,34 @@ inline fun inlined(block: () -> Unit) {
     foo {
         println("do something cross inlined")
     }
+
+    fooNoinlineCrossinline(
+        f0 = {
+            println("do something noInlined")
+        },
+        f1 = {
+            println("do something crossinlined")
+        })
 }
 
-inline fun foo(crossinline f: () -> Unit) {
-    bar { f() }
+inline fun foo(f: () -> Unit) {
+    someFunInsideInlinedFun {
+        //error: Cannot inline 'f: () -> Unit' here: it might contain non-local returns.
+        // Add 'crossinline' modifier to parameter declaration 'f: ()'
+        f()
+    }
 }
 
-fun bar(f: () -> Unit) {
+inline fun fooNoinlineCrossinline(noinline f0: () -> Unit, crossinline f1: () -> Unit) {
+    someFunInsideInlinedFun {
+        f0()
+    }
+
+    someFunInsideInlinedFun {
+        f1()
+    }
+}
+
+fun someFunInsideInlinedFun(f: () -> Unit) {
     f()
 }
