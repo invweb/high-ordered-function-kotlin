@@ -32,6 +32,8 @@ inline fun foo(f: () -> Unit) {
 inline fun fooNoinlineCrossinline(noinline f0: () -> Unit, crossinline f1: () -> Unit) {
     someFunInsideInlinedFun {
         f0()
+        println(passTypeUsingReifiedParameter<String>())
+        println(passTypeUsingReifiedParameter<Int>())
     }
 
     someFunInsideInlinedFun {
@@ -41,4 +43,8 @@ inline fun fooNoinlineCrossinline(noinline f0: () -> Unit, crossinline f1: () ->
 
 fun someFunInsideInlinedFun(f: () -> Unit) {
     f()
+}
+
+inline fun <reified T> passTypeUsingReifiedParameter(): String? {
+    return T::class.simpleName
 }
