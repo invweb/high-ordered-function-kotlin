@@ -10,4 +10,15 @@ inline fun inlined(block: () -> Unit) {
     println("before")
     block()
     println("after")
+    foo {
+        println("do something cross inlined")
+    }
+}
+
+inline fun foo(crossinline f: () -> Unit) {
+    bar { f() }
+}
+
+fun bar(f: () -> Unit) {
+    f()
 }
