@@ -2,7 +2,7 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main() {
     inlined {
-        println("do something here")
+        println("do something inlined")
     }
 }
 
